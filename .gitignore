@@ -121,6 +121,7 @@ celerybeat.pid
 
 # Environments
 artifacts/
+notebook/
 .env
 .venv
 env/

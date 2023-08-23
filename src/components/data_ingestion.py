@@ -17,6 +17,9 @@ from dataclasses import dataclass
 from src.components.data_transformation import DataTransformation
 from src.components.data_transformation import DataTransformationConfig
 
+from src.components.model_trainer import ModelTrainerConfig
+from src.components.model_trainer import ModelTrainer
+
 @dataclass
 class DataIngestionConfig:
 
@@ -75,10 +78,16 @@ if __name__ == "__main__":
 	# running the DataTransformation class
 
 	# executing the initiate_data_transformation
-	data_transformation.initiate_data_transformation(train_data_path, test_data_path)
+	train_arr,test_arr,_ = data_transformation.initiate_data_transformation(train_data_path, test_data_path)
 	# the function returns the train and test set as np.arrays,
 	# and also saves the preprocessing pipeline (that contains the)
 	# model used for preprocessing the data, with pickle (dill)
+
+	model_trainer = ModelTrainer()
+	print(model_trainer.initiate_model_trainer(train_arr, test_arr))
+
+
+
 
 
 
