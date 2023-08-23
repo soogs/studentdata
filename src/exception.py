@@ -3,7 +3,7 @@
 # Let's write the exception...
 
 import sys
-import logger
+import src.logger
 import logging
 
 
