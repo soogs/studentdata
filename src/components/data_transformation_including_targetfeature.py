@@ -52,8 +52,8 @@ class DataTransformation:
 			# this extracts the feature names of the numeric and categorical features
 			# the above code did not work because we did not yet read the data
 
-			# numerical_features = ['math_score', 'reading_score', 'writing_score']
-			numerical_features = ['reading_score', 'writing_score']
+			numerical_features = ['math_score', 'reading_score', 'writing_score']
+			# numerical_features = ['reading_score', 'writing_score']
 			categorical_features = ['gender', 'race_ethnicity', 'parental_level_of_education', 'lunch', 'test_preparation_course']
 
 			# logging the found features
@@ -123,33 +123,48 @@ class DataTransformation:
 			logging.info(
                 f"Applying preprocessing object on training dataframe and testing dataframe."
             )
-			
-			target_column_name = "math_score"
 
-			input_feature_train_df=train_df.drop(columns=[target_column_name],axis=1)
+            # appyling the pre-processing:
+			processed_train_arr=preprocessing_obj.fit_transform(train_df)
 
-			target_feature_train_df=train_df[target_column_name]
-
-			input_feature_test_df=test_df.drop(columns=[target_column_name],axis=1)
-
-			target_feature_test_df=test_df[target_column_name]
+			# applying the median and mode obtained on the train set to the test set
+			processed_test_arr=preprocessing_obj.transform(test_df)
 
 			logging.info(
-				f"Applying preprocessing object on training dataframe and testing dataframe."
+				f"Preprocessing pipeline applied on train and test df."
 			)
 
-			# so the pipeline is only placed upon the input features!
-			input_feature_train_arr=preprocessing_obj.fit_transform(input_feature_train_df)
-			input_feature_test_arr=preprocessing_obj.transform(input_feature_test_df)
+			logging.info(
+				f"Splitting the target feature and input features"
+			)
 
+			# defining the outcome feature for predicting
+			target_column_name = "math_score"
+
+			# get the column names of the array that would be resulting from the pipeline
+			column_names_pipeline = list(preprocessing_obj.get_feature_names_out())
+
+			# change the column name of the target feature such that it matches the column names from the pipeline
+			target_column_name_pipeline = 'num_pipeline__' + target_column_name
+
+			# this is the index of the target feature
+			target_column_index = column_names_pipeline.index(target_column_name_pipeline)
+
+			# For each train and test set, split the input and target features
+			input_feature_train_arr = np.delete(processed_train_arr, target_column_index, axis=1)
+			target_feature_train_arr = processed_train_arr[:, target_column_index]
+
+			input_feature_test_arr = np.delete(processed_test_arr, target_column_index, axis=1)
+			target_feature_test_arr = processed_test_arr[:, target_column_index]
+
+			# concatenate the predictor and target features, in a way that the target feature comes at the end
 			train_arr = np.c_[
-				input_feature_train_arr, np.array(target_feature_train_df)
+				input_feature_train_arr, target_feature_train_arr
 			]
 
 			test_arr = np.c_[
-				input_feature_test_arr, np.array(target_feature_test_df)
+				input_feature_test_arr, target_feature_test_arr
 			]
-
 
 			# print("train_arr, from transformation \n", train_arr[:2,])
 			# print("test_arr, from transformation \n", test_arr[:2,])
