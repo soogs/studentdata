@@ -53,6 +53,11 @@ class ModelTrainer:
 				test_array[:, -1]
 			)
 
+
+			# print("X_train \n", X_train[:2,])
+
+			# print("X_test: \n", X_test[:2,])
+
 			# defining the dictionary of models:
 			models = {
 			"Random Forest": RandomForestRegressor(),
@@ -65,6 +70,7 @@ class ModelTrainer:
 			}
 
 			logging.info("Initiating model fitting.")
+
 			# the evaluate_model function is defined on the
 			# utils module
 			model_report:dict=evaluate_models(X_train=X_train, 
@@ -97,7 +103,7 @@ class ModelTrainer:
 			predicted = best_model.predict(X_test)
 			predicted_r2_square =  r2_score(y_test, predicted)
 
-			return predicted_r2_square
+			return best_model, predicted_r2_square
 
 		except Exception as e:
 			raise CustomException(e, sys)
