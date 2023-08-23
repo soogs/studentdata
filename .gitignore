@@ -120,6 +120,7 @@ celerybeat.pid
 *.sage.py
 
 # Environments
+perhaps_redundant/
 artifacts/
 notebook/
 .env
