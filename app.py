@@ -47,8 +47,6 @@ def predict_datapoint():
 		# this 'get_data_as_data_frame' function is within the CustomData class
 		pred_df = data.get_data_as_data_frame()
 
-		print(pred_df)
-
 		# initialize the pipeline for prediction
 		predict_pipeline = PredictPipeline()
 		results = predict_pipeline.predict(pred_df)

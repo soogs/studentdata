@@ -5,7 +5,8 @@
 
 # building a ML package as a packge!
 
-from setuptools import find_packages, setup 
+from setuptools import find_packages, setup
+from typing import List
 # find_packages finds out the packages in the 
 # ML project that we are working on
 
@@ -13,7 +14,7 @@ from setuptools import find_packages, setup
 HYPEN_E_DOT='-e .'
 # for treating the -e. thing in the requirements.txt
 
-def get_requirements(path:str):
+def get_requirements(path:str)->List[str]:
 	'''
 	This function returns the list of requirements from a text file
 	'''
