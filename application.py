@@ -28,13 +28,7 @@ def index():
 		reading_score = 22,
 		writing_score = 33)
 
-	pred_df_prior = data_prior.get_data_as_data_frame()
-
-	# initialize the pipeline for prediction
-	predict_pipeline_prior = PredictPipeline()
-	results_prior = predict_pipeline_prior.predict(pred_df_prior)
-
-	return render_template("index.html", gender_prior = "male", prior_prediction = results_prior[0])
+	return render_template("index.html", gender_prior = "male", prior_prediction = 1919191919)
 
 # specifying two methods of GET and POST
 @app.route('/predictdata', methods = ['GET', 'POST'])
