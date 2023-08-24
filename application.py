@@ -20,17 +20,18 @@ app = Flask(__name__)
 @app.route('/')
 def index():
 
-	data_prior = CustomData(gender = "male", 
-		race_ethnicity = "group B",
-		parental_level_of_education = "some college",
-		lunch = "standard",
-		test_preparation_course = "none",
-		reading_score = 22,
-		writing_score = 33)
+	# data_prior = CustomData(gender = "male", 
+	# 	race_ethnicity = "group B",
+	# 	parental_level_of_education = "some college",
+	# 	lunch = "standard",
+	# 	test_preparation_course = "none",
+	# 	reading_score = 22,
+	# 	writing_score = 33)
 
-	pred_df_prior = data_prior.get_data_as_data_frame()
+	# pred_df_prior = data_prior.get_data_as_data_frame()
 
-	return render_template("index.html", gender_prior = "male", prior_prediction = pred_df_prior.iloc[0,0])
+	# return render_template("index.html", gender_prior = "male", prior_prediction = pred_df_prior.iloc[0,0])
+	return render_template("index.html")
 
 # specifying two methods of GET and POST
 @app.route('/predictdata', methods = ['GET', 'POST'])
@@ -61,7 +62,7 @@ def predict_datapoint():
 		predict_pipeline = PredictPipeline()
 		results = predict_pipeline.predict(pred_df)
 
-		return render_template('home.html', results = results[0])
+		return render_template('home.html', results = round(results[0],3))
 
 if __name__ == "__main__":
 	app.debug = True

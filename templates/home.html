@@ -1,12 +1,12 @@
 <html>
 <body>
     <div class="login">
-       <h1>Student Exam Performance Indicator</h1>
+       <h1>Student Exam Performance Prediction Model</h1>
    
        <form action="{{ url_for('predict_datapoint')}}" method="post">
 <!-- The above is calling the predict_datapoint from app.py. Here the method is defined as 'post' --> 
         <h1>
-            <legend>Student Exam Performance Prediction</legend>
+            <legend></legend>
         </h1>
         <div class="mb-3">
             <label class="form-label">Gender</label>
@@ -106,7 +106,7 @@
         </div>
     </form>
     <h2>
-       THE  prediction is {{results}}
+       The  prediction for the math score is {{results}}
     </h2>
 
     <!-- the above code with h2 tag gives the results. in app.py, the object named 'results' is retrieved here -->
