@@ -28,7 +28,9 @@ def index():
 		reading_score = 22,
 		writing_score = 33)
 
-	return render_template("index.html", gender_prior = "male", prior_prediction = 1919191919)
+	pred_df_prior = data_prior.get_data_as_data_frame()
+
+	return render_template("index.html", gender_prior = "male", prior_prediction = pred_df_prior.iloc[0,0])
 
 # specifying two methods of GET and POST
 @app.route('/predictdata', methods = ['GET', 'POST'])
